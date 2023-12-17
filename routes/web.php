@@ -31,6 +31,7 @@ Route::controller(AdminController::class)
     ->group(function (){
    Route::get('login','adminLogin');
    Route::post('login','store')->name('admin.login');
+
 });
 
 Route::middleware([
@@ -52,3 +53,4 @@ Route::middleware([
         return view('user.home');
     })->name('dashboard');
 });
+Route::get('admin/logout',[AdminController::class,'destroy'])->name('admin.logout');
