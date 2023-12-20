@@ -1,4 +1,5 @@
 @extends('user.master')
+@section('title','Home')
 @section('main_content')
 
     <!--middle content wrapper-->

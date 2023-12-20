@@ -22,6 +22,8 @@ Route::get('/', function () {
 // all user routes...........
 Route::controller(UserController::class)->prefix('user')->group(function (){
     Route::get('logout','logOut')->name('user.logout');
+    Route::get('profile','userProfile')->name('user.profile');
+    Route::get('profile/edit/{id}','userProfileEdit')->name('user_profile_edit');
 });
 
 

@@ -1,7 +1,7 @@
 <header class="header_area">
     <!-- logo -->
     <div class="sidebar_logo">
-        <a href="index.html">
+        <a href="{{ route('dashboard') }}">
             <img src="{{ asset('/') }}user_backend/panel/assets/images/logo.png" alt="" class="img-fluid logo1">
             <img src="{{ asset('/') }}user_backend/panel/assets/images/logo_small.png" alt="" class="img-fluid logo2">
         </a>
@@ -225,7 +225,7 @@
                 </div>
                 <ul>
 
-                    <li><a href="#"><span><i class="fas fa-user"></i></span> User Profile</a></li>
+                    <li><a href="{{ route('user.profile') }}"><span><i class="fas fa-user"></i></span> User Profile</a></li>
                     <li><a href=" "><span><i class="fas fa-cogs"></i></span>  Password Change</a></li>
                     <li>
 
