@@ -20,8 +20,14 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         return view('user.profile.view_profile',compact('user'));
     }
-    public function userProfileEdit($id)
+    public function userProfileEdit()
     {
-
+        $id = Auth::user()->id;
+        $editUser = User::findOrFail($id);
+        return view('user.profile.edit_profile',compact('editUser'));
+    }
+    public function userProfileUpdate(Request $request)
+    {
+//        return $request->all();
     }
 }

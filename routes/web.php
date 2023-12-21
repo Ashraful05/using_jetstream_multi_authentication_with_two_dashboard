@@ -23,7 +23,8 @@ Route::get('/', function () {
 Route::controller(UserController::class)->prefix('user')->group(function (){
     Route::get('logout','logOut')->name('user.logout');
     Route::get('profile','userProfile')->name('user.profile');
-    Route::get('profile/edit/{id}','userProfileEdit')->name('user_profile_edit');
+    Route::get('profile/edit','userProfileEdit')->name('user_profile_edit');
+    Route::post('profile/update','userProfileUpdate')->name('update_user_profile');
 });
 
 
