@@ -28,6 +28,25 @@ class UserController extends Controller
     }
     public function userProfileUpdate(Request $request)
     {
+//        $request->validate([
+//           'profile_photo_path'=>''
+//        ]);
 //        return $request->all();
+        $data = User::find(Auth::user()->id);
+        if($request->file('profile_photo_path')){
+            $file = $request->file('profile_photo_path');
+            @unlink(public_path('upload/user_images/'.$data->profile_photo_path));
+            $fileName = date('YmdHi').'.'.$file->getClientOriginalExtension();
+            $file->move(public_path('upload/user_images'),$fileName);
+            $data->profile_photo_path = $fileName;
+        }
+        $data->update([
+            'name'=> $request->name,
+            'email' => $request->email,
+        ]);
+//        return $data;
+        return redirect()->route('user.profile');
+
+
     }
 }
