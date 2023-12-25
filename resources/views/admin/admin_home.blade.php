@@ -1,4 +1,5 @@
 @extends('admin.admin_master')
+@section('title','Admin Home')
 @section('main_content')
 
         @include('admin.includes.nav')

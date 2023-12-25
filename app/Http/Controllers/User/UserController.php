@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Testing\Fluent\Concerns\Has;
 
 class UserController extends Controller
 {
@@ -45,8 +47,43 @@ class UserController extends Controller
             'email' => $request->email,
         ]);
 //        return $data;
-        return redirect()->route('user.profile');
+        $notification = [
+            'message'=>'User Info Updated!!',
+            'alert-type'=>'info'
+        ];
+        return redirect()->route('user.profile')->with($notification);
+    }
+    public function userPasswordChange()
+    {
+        return view('user.password.password_change');
+    }
+    public function userPasswordUpdate(Request $request)
+    {
+        $request->validate([
+            'old_password'=>'required',
+            'password'=>'required|confirmed',
+        ]);
 
+        $hashedPassword = Auth::user()->password;
+//        return $hashedPassword;
+
+        if(Hash::check($request->old_password,$hashedPassword)){
+            $user = User::find(Auth::id());
+            $user->password = Hash::make($request->password);
+            $user->save();
+            Auth::logout();
+            $notification = [
+                'alert-type'=>'success',
+                'message'=>'Your password is successfully changed,please login with your new password'
+            ];
+            return redirect()->route('login')->with($notification);
+        }else{
+            $notification = [
+              'alert-type'=>'error',
+              'message'=>'Check your old and new password'
+            ];
+            return redirect()->back()->with($notification);
+        }
 
     }
 }

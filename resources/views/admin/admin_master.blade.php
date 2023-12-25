@@ -28,7 +28,7 @@
     <meta name="description" content="Premium Quality and Responsive UI for Dashboard.">
     <meta name="author" content="ThemePixels">
 
-    <title>Starlight Responsive Bootstrap 4 Admin Template</title>
+    <title>@yield('title')</title>
 
     <!-- vendor css -->
     @include('admin.layout.styles')
@@ -325,6 +325,26 @@
 </div>
 
 @include('admin.layout.scripts')
+
+<script>
+    @if(Session::has('message'))
+    var type = "{{ Session::get('alert-type','info') }}"
+    switch (type){
+        case 'info':
+            toastr.info(" {{ Session::get('message') }} ");
+            break;
+        case 'success':
+            toastr.success(" {{ Session::get('message') }} ");
+            break;
+        case 'warning':
+            toastr.warning(" {{ Session::get('message') }} ");
+            break;
+        case 'error':
+            toastr.error(" {{ Session::get('message') }} ");
+            break;
+    }
+    @endif
+</script>
 
 </body>
 </html>

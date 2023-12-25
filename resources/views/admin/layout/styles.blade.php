@@ -5,3 +5,4 @@
 
 <!-- Starlight CSS -->
 <link rel="stylesheet" href="{{ asset('/admin_backend') }}/css/starlight.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">

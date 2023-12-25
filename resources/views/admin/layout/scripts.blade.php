@@ -15,3 +15,5 @@
 <script src="{{ asset('/admin_backend') }}/js/starlight.js"></script>
 <script src="{{ asset('/admin_backend') }}/js/ResizeSensor.js"></script>
 <script src="{{ asset('/admin_backend') }}/js/dashboard.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>

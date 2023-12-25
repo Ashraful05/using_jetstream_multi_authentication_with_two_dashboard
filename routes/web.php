@@ -22,9 +22,11 @@ Route::get('/', function () {
 // all user routes...........
 Route::controller(UserController::class)->prefix('user')->group(function (){
     Route::get('logout','logOut')->name('user.logout');
-    Route::get('profile','userProfile')->name('user.profile');
-    Route::get('profile/edit','userProfileEdit')->name('user_profile_edit');
-    Route::post('profile/update','userProfileUpdate')->name('update_user_profile');
+    Route::get('profile','userProfile')->name('user.profile')->middleware('auth:sanctum,web');
+    Route::get('profile/edit','userProfileEdit')->name('user_profile_edit')->middleware('auth:sanctum,web');
+    Route::post('profile/update','userProfileUpdate')->name('update_user_profile')->middleware('auth:sanctum,web');
+    Route::get('password/change','userPasswordChange')->name('user.password.change')->middleware('auth:sanctum,web');
+    Route::post('password/update','userPasswordUpdate')->name('update_user_password');
 });
 
 
