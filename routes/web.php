@@ -44,6 +44,8 @@ Route::controller(MainAdminController::class)->prefix('admin')
        Route::get('profile','viewProfile')->name('view_profile');
        Route::get('profile/edit','editProfile')->name('admin_profile_edit');
        Route::post('profile/update','updateAdminProfile')->name('update_admin_profile');
+       Route::get('password/change','passwordChange')->name('admin_password_change');
+       Route::post('password/update','updatePassword')->name('update_admin_password');
     });
 
 Route::middleware([

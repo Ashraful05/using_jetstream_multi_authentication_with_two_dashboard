@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class MainAdminController extends Controller
 {
@@ -37,5 +40,37 @@ class MainAdminController extends Controller
             'alert-type'=>'info'
         ];
         return redirect()->route('view_profile')->with($notification);
+    }
+    public function passwordChange()
+    {
+        return view('admin.password.change_password');
+    }
+    public function updatePassword(Request $request)
+    {
+        $request->validate([
+            'old_password'=>'required',
+            'password'=>'required|confirmed',
+        ]);
+
+        $hashedPassword = Admin::find(1)->password;
+//        return $hashedPassword;
+
+        if(Hash::check($request->old_password,$hashedPassword)){
+            $admin = Admin::find(1);
+            $admin->password = Hash::make($request->password);
+            $admin->save();
+            Auth::logout();
+            $notification = [
+                'alert-type'=>'success',
+                'message'=>'Your password is successfully changed,please login with your new password'
+            ];
+            return redirect()->route('admin.login')->with($notification);
+        }else{
+            $notification = [
+                'alert-type'=>'error',
+                'message'=>'Check your old and new password'
+            ];
+            return redirect()->back()->with($notification);
+        }
     }
 }
