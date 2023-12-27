@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\MainAdminController;
 use App\Http\Controllers\User\UserController;
 
 /*
@@ -38,6 +39,12 @@ Route::controller(AdminController::class)
    Route::post('login','store')->name('admin.login');
 
 });
+Route::controller(MainAdminController::class)->prefix('admin')
+    ->group(function (){
+       Route::get('profile','viewProfile')->name('view_profile');
+       Route::get('profile/edit','editProfile')->name('admin_profile_edit');
+       Route::post('profile/update','updateAdminProfile')->name('update_admin_profile');
+    });
 
 Route::middleware([
     'auth:sanctum,admin',
