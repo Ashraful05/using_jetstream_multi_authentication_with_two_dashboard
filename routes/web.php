@@ -33,18 +33,17 @@ Route::controller(UserController::class)->prefix('user')->group(function (){
 
 //all admin routes........
 Route::controller(AdminController::class)
-    ->prefix('admin')->middleware('admin:admin')
-    ->group(function (){
+    ->prefix('admin')->group(function (){
    Route::get('login','adminLogin');
    Route::post('login','store')->name('admin.login');
 
 });
 Route::controller(MainAdminController::class)->prefix('admin')
     ->group(function (){
-       Route::get('profile','viewProfile')->name('view_profile');
-       Route::get('profile/edit','editProfile')->name('admin_profile_edit');
+       Route::get('profile','viewProfile')->name('view_profile')->middleware('auth:sanctum,admin');
+       Route::get('profile/edit','editProfile')->name('admin_profile_edit')->middleware('auth:sanctum,admin');
        Route::post('profile/update','updateAdminProfile')->name('update_admin_profile');
-       Route::get('password/change','passwordChange')->name('admin_password_change');
+       Route::get('password/change','passwordChange')->name('admin_password_change')->middleware('auth:sanctum,admin');
        Route::post('password/update','updatePassword')->name('update_admin_password');
     });
 
